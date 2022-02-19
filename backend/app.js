@@ -6,6 +6,7 @@ const goalRoutes = require('./routes/goalRoutes');
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+app.use(express.json());
 app.use('/api/goals', goalRoutes);
 
 app.listen(PORT, () => {
