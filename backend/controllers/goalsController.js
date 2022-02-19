@@ -11,7 +11,7 @@ function createGoal(req, res) {
 }
 
 function updateGoal(req, res) {
-  res.status(200).send('<h1>PATCH /goals/:id</h1>');
+  res.status(200).send('<h1>PUT /goals/:id</h1>');
 }
 
 function deleteGoal(req, res) {
