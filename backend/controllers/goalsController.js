@@ -32,7 +32,11 @@ async function updateGoal(req, res) {
 }
 
 async function deleteGoal(req, res) {
-  res.status(200).send('<h1>DELETE /goals/:id</h1>');
+  const { id } = req.params;
+
+  await goalModel.findByIdAndDelete(id);
+
+  res.sendStatus(204);
 }
 
 module.exports = {
