@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 async function connect() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    const connect = await mongoose.connect(process.env.MONGODB_URI);
 
-    console.log('Connection to MongoDB was successfull!');
+    console.log(`Connection to MongoDB was successfull: ${connect.connection.host}`);
   } catch (err) {
     console.log(err.message);
   }
