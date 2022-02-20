@@ -35,7 +35,7 @@ async function createGoal(req, res, next) {
     return next(error);
   }
 
-  if (!body.completed) {
+  if (!body.completed && body.completed !== false) {
     res.status(400);
     const error = new Error('Completed field is required');
     return next(error);
