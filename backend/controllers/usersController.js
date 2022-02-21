@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const generateToken = require('../helpers/generateToken');
 
 const User = require('../models/user.model');
 
@@ -50,6 +51,7 @@ class usersController {
       _id: registeredUser.id,
       name: registeredUser.name,
       email: registeredUser.email,
+      token: generateToken(registeredUser._id),
     });
   }
 
