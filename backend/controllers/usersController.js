@@ -55,7 +55,23 @@ class usersController {
   }
 
   async loginUser(req, res) {
-    res.json({message: 'login user'});
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    const loginConditional = user && (await bcrypt.compare(password, user.password));
+
+    if(!loginConditional) {
+      res.status(400).json({
+        message: 'Incorrect credentials',
+      });
+    }
+
+    res.status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email
+    });
   }
 
   async getUserData(req, res) {
