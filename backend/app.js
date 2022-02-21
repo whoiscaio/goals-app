@@ -4,6 +4,7 @@ const express = require('express');
 const connect = require('./database/connect');
 const { errorHandler } = require('./middleware/errorHandler');
 const goalRoutes = require('./routes/goalRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 connect();
 
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/api/goals', goalRoutes);
+app.use('/api/users', userRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
