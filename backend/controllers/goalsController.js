@@ -1,8 +1,8 @@
-const goalModel = require('../models/goal.model');
+const Goal = require('../models/goal.model');
 
 class goalsController {
   async getGoals(req, res) {
-    const goals = await goalModel.find({});
+    const goals = await Goal.find({});
   
     res.status(200).json(goals);
   }
@@ -16,7 +16,7 @@ class goalsController {
       return next(error);
     }
   
-    const goal = await goalModel.findById(id);
+    const goal = await Goal.findById(id);
   
     if (!goal) {
       res.status(404);
@@ -42,7 +42,7 @@ class goalsController {
       return next(error);
     }
   
-    const newGoal = await goalModel.create(body);
+    const newGoal = await Goal.create(body);
   
     res.status(201).json(newGoal);
   }
@@ -57,7 +57,7 @@ class goalsController {
       return next(error);
     }
   
-    const goal = await goalModel.findById(id);
+    const goal = await Goal.findById(id);
   
     if (!goal) {
       res.status(404);
@@ -65,7 +65,7 @@ class goalsController {
       return next(error);
     }
   
-    const updatedGoal = await goalModel.findByIdAndUpdate(id, body, { new: true });
+    const updatedGoal = await Goal.findByIdAndUpdate(id, body, { new: true });
   
     res.status(200).json(updatedGoal);
   }
@@ -78,7 +78,7 @@ class goalsController {
       return next(error);
     }
   
-    await goalModel.findByIdAndDelete(id);
+    await Goal.findByIdAndDelete(id);
   
     res.sendStatus(204);
   }
