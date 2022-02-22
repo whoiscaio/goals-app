@@ -64,7 +64,10 @@ class goalsController {
       return next(error);
     }
   
-    await Goal.findByIdAndDelete(id);
+    await Goal.findOneAndDelete({
+      _id: id,
+      userId: req.user.id,
+    });
   
     res.sendStatus(204);
   }
