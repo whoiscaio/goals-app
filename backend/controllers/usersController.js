@@ -63,15 +63,15 @@ class usersController {
     const loginConditional = user && (await bcrypt.compare(password, user.password));
 
     if(!loginConditional) {
-      res.status(400).json({
-        message: 'Incorrect credentials',
-      });
+      const error = new Error('Incorrect credentials');
+      next(error);
     }
 
     res.status(200).json({
       _id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      token: generateToken(user._id),
     });
   }
 
