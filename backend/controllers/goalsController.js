@@ -40,7 +40,10 @@ class goalsController {
       return next(error);
     }
   
-    const goal = await Goal.findById(id);
+    const goal = await Goal.findOne({
+      _id: id,
+      userId: req.user.id,
+    });
   
     if (!goal) {
       res.status(404);
