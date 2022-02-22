@@ -2,29 +2,9 @@ const Goal = require('../models/goal.model');
 
 class goalsController {
   async getGoals(req, res) {
-    const goals = await Goal.find({});
+    const goals = await Goal.find({ userId: req.user.id });
   
     res.status(200).json(goals);
-  }
-  
-  async getGoal(req, res, next) {
-    const { id } = req.params;
-  
-    if (id.length !== 24) {
-      res.status(400);
-      const error = new Error('Invalid id provided');
-      return next(error);
-    }
-  
-    const goal = await Goal.findById(id);
-  
-    if (!goal) {
-      res.status(404);
-      const error = new Error('Goal not found');
-      return next(error);
-    }
-  
-    res.status(200).json(goal);
   }
   
   async createGoal(req, res, next) {
@@ -42,7 +22,10 @@ class goalsController {
       return next(error);
     }
   
-    const newGoal = await Goal.create(body);
+    const newGoal = await Goal.create({
+      ...body,
+      userId: req.user.id,
+    });
   
     res.status(201).json(newGoal);
   }
