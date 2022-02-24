@@ -9,12 +9,16 @@ import light from './styles/themes/light';
 function App() {
   const [theme, setTheme] = useState<string>('light');
 
+  function toggleTheme() {
+    setTheme((prevState) => (prevState === 'dark' ? 'light' : 'dark'));
+  }
+
   return (
     <>
       <ThemeProvider theme={theme === 'dark' ? dark : light}>
         <GlobalStyle />
         <div className="App">
-          <Header />
+          <Header currentTheme={theme} themeSwitcher={toggleTheme} />
           <Router />
         </div>
       </ThemeProvider>
