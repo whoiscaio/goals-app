@@ -1,7 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
+import { Sun, Moon } from 'lucide-react';
+
 import { HeaderContainer } from './styled';
 
-function Header() {
+type HeaderProps = {
+  currentTheme: string,
+  themeSwitcher: () => void,
+}
+
+function Header({ currentTheme, themeSwitcher }: HeaderProps) {
   return (
     <HeaderContainer>
       <div className="title">
@@ -15,6 +22,13 @@ function Header() {
           <li><NavLink to="/login">Login</NavLink></li>
           <li><NavLink to="/signup">Signup</NavLink></li>
         </ul>
+        <button onClick={themeSwitcher}>
+          {
+            currentTheme === 'dark'
+            ? <Sun color='#f3f3f3' size={24} />
+            : <Moon size={24} />
+          }
+        </button>
       </nav>
     </HeaderContainer>
   );

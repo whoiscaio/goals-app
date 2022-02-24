@@ -20,12 +20,8 @@ export const HeaderContainer = styled.header`
   a {
     color: ${({ theme }) => theme.colors.text};
 
-    display: inline-block;
-
-    transition: transform, .24s ease-in-out;
-
     &:hover {
-      transform: scale(1.05);
+      text-decoration: underline;
     }
   }
 
@@ -39,9 +35,27 @@ export const HeaderContainer = styled.header`
     a {
       font-size: 1.6rem;
     }
+  }
 
-    &:last-child {
-      margin-right: 0;
+  nav {
+    display: flex;
+    align-items: center;
+
+    button {
+      border-radius: ${({ theme }) => theme.measures.borderRadius};
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      padding: .8rem;
+      
+      cursor: pointer;
+      transition: background-color .12s ease-in;
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.effects.themeSwitcherBackground};
+      }
     }
   }
 `;
