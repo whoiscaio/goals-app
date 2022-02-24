@@ -34,7 +34,7 @@ export const HeaderContainer = styled.header`
   }
 
   li {
-    margin-right: 2rem;
+    margin-right: 5rem;
 
     a {
       font-size: 1.6rem;

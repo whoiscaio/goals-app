@@ -7,7 +7,7 @@ import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 
 function App() {
-  const [theme, setTheme] = useState<string>('dark');
+  const [theme, setTheme] = useState<string>('light');
 
   return (
     <>
