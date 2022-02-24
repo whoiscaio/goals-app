@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node backend/app.js",
-    "dev": "nodemon backend/app.js"
+    "dev": "nodemon backend/app.js",
+    "client": "yarn --cwd frontend start"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
