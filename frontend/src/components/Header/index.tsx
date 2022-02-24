@@ -1,5 +1,9 @@
+import { HeaderContainer } from './styled';
+
 function Header() {
-  return <div>Header</div>;
+  return <HeaderContainer>
+    Header
+  </HeaderContainer>;
 }
 
 export default Header;
