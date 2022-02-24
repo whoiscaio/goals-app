@@ -7,7 +7,7 @@ const dark: DefaultTheme = {
     text: '#f3f3f3',
     elements: '#3D4766',
     effects: {
-      text: '#c2c2c2',
+      themeSwitcherBackground: '#282828',
     }
   },
   ...pattern,

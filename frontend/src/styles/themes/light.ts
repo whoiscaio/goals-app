@@ -7,7 +7,7 @@ const light: DefaultTheme = {
     text: '#121212',
     elements: '#A3BCF9',
     effects: {
-      text: '#282828'
+      themeSwitcherBackground: '#d6d6d6',
     }
   },
   ...pattern,

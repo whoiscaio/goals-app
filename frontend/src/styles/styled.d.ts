@@ -7,7 +7,7 @@ declare module 'styled-components' {
       text: string,
       elements: string,
       effects: {
-        text: string,
+        themeSwitcherBackground: string,
       }
     },
     measures: {
