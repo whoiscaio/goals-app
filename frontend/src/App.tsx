@@ -11,13 +11,13 @@ function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <div className="App">
-        <ThemeProvider theme={ theme === 'dark' ? dark : light }>
+      <ThemeProvider theme={theme === 'dark' ? dark : light}>
+        <GlobalStyle />
+        <div className="App">
           <Header />
           <Router />
-        </ThemeProvider>
-      </div>
+        </div>
+      </ThemeProvider>
     </>
   );
 }
