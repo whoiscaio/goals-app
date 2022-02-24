@@ -5,6 +5,10 @@ declare module 'styled-components' {
     colors: {
       background: string,
       text: string,
+      elements: string,
+      effects: {
+        text: string,
+      }
     },
     measures: {
       borderRadius: string,
