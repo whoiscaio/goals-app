@@ -21,7 +21,7 @@ function App() {
         <div className="App">
           <Header currentTheme={theme} themeSwitcher={toggleTheme} />
           <PageWrapper> 
-            <Router />
+            <Router currentTheme={theme} />
           </PageWrapper>
         </div>
       </ThemeProvider>

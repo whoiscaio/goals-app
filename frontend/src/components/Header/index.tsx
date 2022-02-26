@@ -25,7 +25,7 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
         <button onClick={themeSwitcher}>
           {
             currentTheme === 'dark'
-            ? <Sun color='#f3f3f3' size={24} />
+            ? <Sun color='#f6f8ff' size={24} />
             : <Moon size={24} />
           }
         </button>

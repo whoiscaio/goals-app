@@ -3,7 +3,7 @@ import pattern from '.';
 
 const light: DefaultTheme = {
   colors: {
-    background: '#f7f7f7',
+    background: '#f6f8ff',
     text: '#121212',
     elements: '#A3BCF9',
     effects: {
