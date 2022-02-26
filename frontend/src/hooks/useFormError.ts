@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type ErrorType = {
+export type ErrorType = {
   message: string,
   field: string,
 }
