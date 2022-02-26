@@ -12,7 +12,7 @@ function Router({ currentTheme }: RouterTypes) {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/login" element={<Login currentTheme={currentTheme} />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route path="/signup" element={<Signup currentTheme={currentTheme} />} />
     </Routes>
   );
 }

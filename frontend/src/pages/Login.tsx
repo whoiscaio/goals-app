@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-import { LoginPageContainer } from './styles';
+import { LoginSignupPageContainer } from './styles';
 
 type LoginProps = {
   currentTheme: string;
@@ -28,7 +28,7 @@ function Login({ currentTheme }: LoginProps) {
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
   return (
-    <LoginPageContainer>
+    <LoginSignupPageContainer>
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -51,7 +51,7 @@ function Login({ currentTheme }: LoginProps) {
           </button>
         </div>
       </form>
-    </LoginPageContainer>
+    </LoginSignupPageContainer>
   );
 }
 

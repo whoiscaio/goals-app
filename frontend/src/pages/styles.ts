@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginPageContainer = styled.section`
+export const LoginSignupPageContainer = styled.section`
   width: min(600px, 100%);
 
   h1, span {
