@@ -27,7 +27,7 @@ export default function useFormError(): ReturnType {
   }
 
   function cleanError(message: string, field: string){
-    setErrors((prevState) => prevState.filter((error) => error.message !== message && error.field !== field));
+    setErrors((prevState) => prevState.filter((error) => (error.message !== message || error.field !== field)));
   }
 
   function getErrorsByFieldname(field: string) {

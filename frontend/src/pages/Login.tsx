@@ -33,6 +33,12 @@ function Login({ currentTheme }: LoginProps) {
 
   function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
+
+    if(!e.target.value) {
+      setNewError('This field is required', 'password');
+    } else {
+      cleanError('This field is required', 'password');
+    }
   }
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
