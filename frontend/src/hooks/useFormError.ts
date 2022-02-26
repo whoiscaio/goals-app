@@ -7,7 +7,7 @@ export type ErrorType = {
 
 export type ReturnType = [
   (message: string, field: string) => void,
-  (message: string, field: string) => void,
+  (message: string) => void,
   (field: string) => string[],
   () => boolean,
 ]
@@ -18,17 +18,19 @@ export default function useFormError(): ReturnType {
   function setNewError(message: string, field: string) {
     if(errors.find((error) => error.message === message && error.field === field)) return;
 
+    cleanErrors(field);
+
     setErrors((prevState) => [
-      ...prevState,
       {
         message: message,
         field: field,
       },
+      ...prevState,
     ])
   }
 
-  function cleanError(message: string, field: string){
-    setErrors((prevState) => prevState.filter((error) => (error.message !== message || error.field !== field)));
+  function cleanErrors(field: string){
+    setErrors((prevState) => prevState.filter((error) => error.field !== field));
   }
 
   function getErrorsByFieldname(field: string) {
@@ -46,5 +48,5 @@ export default function useFormError(): ReturnType {
     return true;
   }
 
-  return [setNewError, cleanError, getErrorsByFieldname, isThereAnyError];
+  return [setNewError, cleanErrors, getErrorsByFieldname, isThereAnyError];
 }
