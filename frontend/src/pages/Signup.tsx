@@ -8,6 +8,8 @@ type SignupTypes = {
   currentTheme: string;
 };
 
+const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 function Signup({ currentTheme }: SignupTypes) {
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -27,8 +29,6 @@ function Signup({ currentTheme }: SignupTypes) {
   }
   
   function validateEmail(email: string) {
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
     if(email.length === 0) {
       return setNewError('This field is required', 'email');
     }
@@ -42,7 +42,7 @@ function Signup({ currentTheme }: SignupTypes) {
 
   function validatePassword(password: string) {
     validateConfirmPassword(password, confirmPassword);
-    
+
     if(!password) {
       return setNewError('This field is required', 'password');
     }
@@ -89,7 +89,16 @@ function Signup({ currentTheme }: SignupTypes) {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    console.log();
+    const condition = username && emailRegex.test(email) && password && (confirmPassword === password);
+
+    if(!condition) {
+      validateUsername(username);
+      validateEmail(email);
+      validatePassword(password);
+      validateConfirmPassword(password, confirmPassword);
+    } else {
+      console.log('no errors');
+    }
   }
 
   return (
