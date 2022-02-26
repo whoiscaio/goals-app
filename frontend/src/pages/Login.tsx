@@ -2,6 +2,8 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 import { LoginSignupPageContainer } from './styles';
+import FormGroup from '../components/FormGroup';
+import useFormError from '../hooks/useFormError';
 
 type LoginProps = {
   currentTheme: string;
@@ -10,6 +12,8 @@ type LoginProps = {
 function Login({ currentTheme }: LoginProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const [setNewError, getErrorsByFieldname] = useFormError();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -31,19 +35,19 @@ function Login({ currentTheme }: LoginProps) {
     <LoginSignupPageContainer>
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <FormGroup error={getErrorsByFieldname('username')}>
           <span>Username</span>
           <input type="text" value={username} onChange={handleUsernameChange} />
-        </label>
+        </FormGroup>
 
-        <label>
+        <FormGroup error={getErrorsByFieldname('password')}>
           <span>Password</span>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
           />
-        </label>
+        </FormGroup>
 
         <div className="button-wrapper">
           <button type="submit">

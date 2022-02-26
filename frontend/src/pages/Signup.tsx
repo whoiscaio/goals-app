@@ -1,5 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import FormGroup from '../components/FormGroup';
+import useFormError from '../hooks/useFormError';
 import { LoginSignupPageContainer } from './styles';
 
 type SignupTypes = {
@@ -11,6 +13,8 @@ function Signup({ currentTheme }: SignupTypes) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  const [setNewError, getErrorsByFieldname] = useFormError();
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
@@ -41,33 +45,33 @@ function Signup({ currentTheme }: SignupTypes) {
       <h1>Signup Page</h1>
 
       <form onSubmit={handleSubmit}>
-        <label>
+        <FormGroup error={getErrorsByFieldname('username')}>
           <span>Username</span>
           <input type="text" value={username} onChange={handleUsernameChange} />
-        </label>
+        </FormGroup>
 
-        <label>
+        <FormGroup error={getErrorsByFieldname('email')}>
           <span>Email</span>
           <input type="text" value={email} onChange={handleEmailChange} />
-        </label>
+        </FormGroup>
 
-        <label>
+        <FormGroup error={getErrorsByFieldname('password')}>
           <span>Password</span>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
           />
-        </label>
+        </FormGroup>
 
-        <label>
+        <FormGroup error={getErrorsByFieldname('confirmPassword')}>
           <span>Confirm password</span>
           <input
             type="password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
-        </label>
+        </FormGroup>
 
         <div className="button-wrapper">
           <button type="submit">
