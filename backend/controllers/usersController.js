@@ -3,6 +3,9 @@ const generateToken = require('../helpers/generateToken');
 
 const User = require('../models/user.model');
 
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 class usersController {
   async registerUser(req, res, next) {
     const { name, email, password } = req.body;
@@ -19,9 +22,21 @@ class usersController {
       return next(error);
     }
 
+    if(!emailRegex.test(email)) {
+      res.status(400);
+      const error = new Error('Email format is incorrect');
+      return next(error);
+    }
+
     if(!password) {
       res.status(400);
       const error = new Error('Password is a required field');
+      return next(error);
+    }
+
+    if(password.length < 8) {
+      res.status(400);
+      const error = new Error('Password must have at least 8 digits');
       return next(error);
     }
 
