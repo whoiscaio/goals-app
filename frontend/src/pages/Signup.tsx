@@ -14,7 +14,7 @@ function Signup({ currentTheme }: SignupTypes) {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-  const [setNewError, getErrorsByFieldname] = useFormError();
+  const [setNewError, cleanError, getErrorsByFieldname] = useFormError();
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 

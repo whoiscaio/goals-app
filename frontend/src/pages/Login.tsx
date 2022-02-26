@@ -13,7 +13,7 @@ function Login({ currentTheme }: LoginProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const [setNewError, getErrorsByFieldname] = useFormError();
+  const [setNewError, cleanError, getErrorsByFieldname] = useFormError();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -23,6 +23,12 @@ function Login({ currentTheme }: LoginProps) {
 
   function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
+
+    if(!e.target.value) {
+      setNewError('This field is required', 'username');
+    } else {
+      cleanError('This field is required', 'username');
+    }
   }
 
   function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {

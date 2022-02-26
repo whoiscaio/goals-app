@@ -9,7 +9,7 @@ export default function FormGroup({ children, error }: FormGroupType) {
   return (
     <label>
       {children}
-      {error && error.map((error) => <div className="error">{error}</div>)}
+      {error && error.map((error) => <div key={error} className="error">{error}</div>)}
     </label>
   );
 }
