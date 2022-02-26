@@ -9,6 +9,7 @@ export type ReturnType = [
   (message: string, field: string) => void,
   (message: string, field: string) => void,
   (field: string) => string[],
+  () => boolean,
 ]
 
 export default function useFormError(): ReturnType {
@@ -37,5 +38,13 @@ export default function useFormError(): ReturnType {
     return errorsByFieldname;
   }
 
-  return [setNewError, cleanError, getErrorsByFieldname];
+  function isThereAnyError() {
+    if(errors.length === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  return [setNewError, cleanError, getErrorsByFieldname, isThereAnyError];
 }

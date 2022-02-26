@@ -13,32 +13,46 @@ function Login({ currentTheme }: LoginProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const [setNewError, cleanError, getErrorsByFieldname] = useFormError();
+  const [setNewError, cleanError, getErrorsByFieldname, isThereAnyError] =
+    useFormError();
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    console.log();
-  }
-
-  function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
-
-    if(!e.target.value) {
+  function validateUsername(username: string) {
+    if (!username) {
       setNewError('This field is required', 'username');
     } else {
       cleanError('This field is required', 'username');
     }
   }
 
-  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
-    setPassword(e.target.value);
-
-    if(!e.target.value) {
+  function validatePassword(password: string) {
+    if (!password) {
       setNewError('This field is required', 'password');
     } else {
       cleanError('This field is required', 'password');
     }
+  }
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (isThereAnyError() || username.length === 0 || password.length === 0) {
+      validateUsername(username);
+      validatePassword(password);
+    } else {
+      console.log('no error');
+    };
+  }
+
+  function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
+    setUsername(e.target.value);
+
+    validateUsername(e.target.value);
+  }
+
+  function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value);
+
+    validatePassword(e.target.value);
   }
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
