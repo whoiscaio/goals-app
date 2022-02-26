@@ -4,7 +4,7 @@ import pattern from '.';
 const dark: DefaultTheme = {
   ...pattern,
   colors: {
-    ...pattern.colors,
+    error: '#ff0033',
     background: '#141414',
     text: '#f6f8ff',
     elements: '#3D4766',

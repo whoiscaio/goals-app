@@ -4,7 +4,7 @@ import pattern from '.';
 const light: DefaultTheme = {
   ...pattern,
   colors: {
-    ...pattern.colors,
+    error: '#cc0000',
     background: '#f6f8ff',
     text: '#121212',
     elements: '#A3BCF9',
