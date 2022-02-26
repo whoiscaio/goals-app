@@ -71,6 +71,13 @@ export const LoginSignupPageContainer = styled.section`
       }
     }
   }
+
+  .error {
+    color: ${({ theme }) => theme.colors.error};
+    font-size: 1.6rem;
+
+    margin-top: .4rem;
+  }
 `;
 
 export const PageWrapper = styled.main`

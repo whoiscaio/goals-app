@@ -6,6 +6,7 @@ declare module 'styled-components' {
       background: string,
       text: string,
       elements: string,
+      error: string,
       effects: {
         themeSwitcherBackground: string,
       }
