@@ -20,6 +20,10 @@ export const LoginPageContainer = styled.section`
     display: block;
     
     margin-bottom: 2rem;
+    
+    &:last-of-type {
+      margin-bottom: 3rem;
+    }
   }
 
   span {
@@ -45,14 +49,27 @@ export const LoginPageContainer = styled.section`
   button {
     background: ${({ theme }) => theme.colors.background};
     border-radius: ${({ theme }) => theme.measures.borderRadius};
-    box-shadow: ${({ theme }) => theme.measures.boxShadow};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     font-size: 2.4rem;
     font-weight: 800;
 
-    padding: .6rem 1.6rem;
+    padding: .8rem 1.6rem;
 
     cursor: pointer;
+
+    svg {
+      transition: transform 250ms;
+    }
+
+    &:hover {
+      svg {
+        transform: translateX(5px);
+      }
+    }
   }
 `;
 
