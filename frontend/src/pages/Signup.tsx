@@ -14,24 +14,76 @@ function Signup({ currentTheme }: SignupTypes) {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
 
-  const [setNewError, cleanError, getErrorsByFieldname] = useFormError();
+  const [setNewError, cleanErrors, getErrorsByFieldname] = useFormError();
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
+  function validateUsername(username: string) {
+    if(!username) {
+      return setNewError('This field is required', 'username');
+    }
+
+    cleanErrors('username');
+  }
+  
+  function validateEmail(email: string) {
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if(email.length === 0) {
+      return setNewError('This field is required', 'email');
+    }
+
+    if(!emailRegex.test(email)) {
+      return setNewError('Email is not valid', 'email');
+    }
+
+    cleanErrors('email');
+  }
+
+  function validatePassword(password: string) {
+    validateConfirmPassword(password, confirmPassword);
+    
+    if(!password) {
+      return setNewError('This field is required', 'password');
+    }
+
+    if(password.length < 8) {
+      return setNewError('The password must contain at least 8 digits', 'password');
+    }
+
+    cleanErrors('password');
+  }
+
+  function validateConfirmPassword(currentPassword: string, confirmPassword: string) {
+    if(confirmPassword !== currentPassword) {
+      return setNewError('Both password must be equal', 'confirmPassword');
+    }
+
+    cleanErrors('confirmPassword');
+  }
+
   function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
+
+    validateUsername(e.target.value);
   }
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
+
+    validateEmail(e.target.value);
   }
 
   function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
+
+    validatePassword(e.target.value);
   }
 
   function handleConfirmPasswordChange(e: ChangeEvent<HTMLInputElement>) {
     setConfirmPassword(e.target.value);
+
+    validateConfirmPassword(password, e.target.value);
   }
 
   function handleSubmit(e: FormEvent) {

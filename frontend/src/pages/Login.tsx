@@ -13,23 +13,23 @@ function Login({ currentTheme }: LoginProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const [setNewError, cleanError, getErrorsByFieldname, isThereAnyError] =
+  const [setNewError, cleanErrors, getErrorsByFieldname, isThereAnyError] =
     useFormError();
 
   function validateUsername(username: string) {
     if (!username) {
-      setNewError('This field is required', 'username');
-    } else {
-      cleanError('This field is required', 'username');
+      return setNewError('This field is required', 'username');
     }
+
+    cleanErrors('username');
   }
 
   function validatePassword(password: string) {
     if (!password) {
-      setNewError('This field is required', 'password');
-    } else {
-      cleanError('This field is required', 'password');
+      return setNewError('This field is required', 'password');
     }
+
+    cleanErrors('password');
   }
 
   function handleSubmit(e: FormEvent) {
@@ -40,7 +40,7 @@ function Login({ currentTheme }: LoginProps) {
       validatePassword(password);
     } else {
       console.log('no error');
-    };
+    }
   }
 
   function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
