@@ -8,7 +8,8 @@ type SignupTypes = {
   currentTheme: string;
 };
 
-const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 function Signup({ currentTheme }: SignupTypes) {
   const [username, setUsername] = useState<string>('');
@@ -21,19 +22,19 @@ function Signup({ currentTheme }: SignupTypes) {
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
   function validateUsername(username: string) {
-    if(!username) {
+    if (!username) {
       return setNewError('This field is required', 'username');
     }
 
     cleanErrors('username');
   }
-  
+
   function validateEmail(email: string) {
-    if(email.length === 0) {
+    if (email.length === 0) {
       return setNewError('This field is required', 'email');
     }
 
-    if(!emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       return setNewError('Email is not valid', 'email');
     }
 
@@ -43,19 +44,25 @@ function Signup({ currentTheme }: SignupTypes) {
   function validatePassword(password: string) {
     validateConfirmPassword(password, confirmPassword);
 
-    if(!password) {
+    if (!password) {
       return setNewError('This field is required', 'password');
     }
 
-    if(password.length < 8) {
-      return setNewError('The password must contain at least 8 digits', 'password');
+    if (password.length < 8) {
+      return setNewError(
+        'The password must contain at least 8 digits',
+        'password'
+      );
     }
 
     cleanErrors('password');
   }
 
-  function validateConfirmPassword(currentPassword: string, confirmPassword: string) {
-    if(confirmPassword !== currentPassword) {
+  function validateConfirmPassword(
+    currentPassword: string,
+    confirmPassword: string
+  ) {
+    if (confirmPassword !== currentPassword) {
       return setNewError('Both password must be equal', 'confirmPassword');
     }
 
@@ -89,9 +96,13 @@ function Signup({ currentTheme }: SignupTypes) {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    const condition = username && emailRegex.test(email) && password && (confirmPassword === password);
+    const condition =
+      username &&
+      emailRegex.test(email) &&
+      password &&
+      confirmPassword === password;
 
-    if(!condition) {
+    if (!condition) {
       validateUsername(username);
       validateEmail(email);
       validatePassword(password);
@@ -101,36 +112,53 @@ function Signup({ currentTheme }: SignupTypes) {
     }
   }
 
+  const usernameErrors = getErrorsByFieldname('username');
+  const emailErrors = getErrorsByFieldname('email');
+  const passwordErrors = getErrorsByFieldname('password');
+  const confirmPasswordErrors = getErrorsByFieldname('confirmPassword');
+
   return (
     <LoginSignupPageContainer>
       <h1>Signup Page</h1>
 
       <form onSubmit={handleSubmit}>
-        <FormGroup error={getErrorsByFieldname('username')}>
+        <FormGroup error={usernameErrors}>
           <span>Username</span>
-          <input type="text" value={username} onChange={handleUsernameChange} />
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            className={usernameErrors.length > 0 ? 'error' : undefined}
+          />
         </FormGroup>
 
-        <FormGroup error={getErrorsByFieldname('email')}>
+        <FormGroup error={emailErrors}>
           <span>Email</span>
-          <input type="text" value={email} onChange={handleEmailChange} />
+          <input
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+            className={emailErrors.length > 0 ? 'error' : undefined}
+          />
         </FormGroup>
 
-        <FormGroup error={getErrorsByFieldname('password')}>
+        <FormGroup error={passwordErrors}>
           <span>Password</span>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            className={passwordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 
-        <FormGroup error={getErrorsByFieldname('confirmPassword')}>
+        <FormGroup error={confirmPasswordErrors}>
           <span>Confirm password</span>
           <input
             type="password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
+            className={confirmPasswordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 

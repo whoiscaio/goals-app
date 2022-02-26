@@ -57,21 +57,30 @@ function Login({ currentTheme }: LoginProps) {
 
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
+  const usernameErrors = getErrorsByFieldname('username');
+  const passwordErrors = getErrorsByFieldname('password');
+
   return (
     <LoginSignupPageContainer>
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
-        <FormGroup error={getErrorsByFieldname('username')}>
+        <FormGroup error={usernameErrors}>
           <span>Username</span>
-          <input type="text" value={username} onChange={handleUsernameChange} />
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+            className={usernameErrors.length > 0 ? 'error' : undefined}
+          />
         </FormGroup>
 
-        <FormGroup error={getErrorsByFieldname('password')}>
+        <FormGroup error={passwordErrors}>
           <span>Password</span>
           <input
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            className={passwordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 

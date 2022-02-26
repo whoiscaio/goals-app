@@ -31,7 +31,7 @@ export const LoginSignupPageContainer = styled.section`
   }
 
   input {
-    border: 0;
+    border: 2px solid #ffffff;
     border-radius: ${({ theme }) => theme.measures.borderRadius};
     box-shadow: ${({ theme }) => theme.measures.boxShadow};
 
@@ -39,6 +39,16 @@ export const LoginSignupPageContainer = styled.section`
 
     margin-top: .6rem;
     padding: 1rem;
+
+    outline: 0;
+
+    &:focus {
+      border: 2px solid #141414;
+    }
+
+    &.error {
+      border: 2px solid ${({ theme }) => theme.colors.error};
+    }
   }
 
   .button-wrapper {
@@ -72,7 +82,7 @@ export const LoginSignupPageContainer = styled.section`
     }
   }
 
-  .error {
+  div.error {
     color: ${({ theme }) => theme.colors.error};
     font-size: 1.6rem;
 
