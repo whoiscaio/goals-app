@@ -64,12 +64,17 @@ class goalsController {
       return next(error);
     }
   
-    await Goal.findOneAndDelete({
+    const goal = await Goal.findOneAndDelete({
       _id: id,
       userId: req.user.id,
     });
+
+    if(!goal) {
+      const error = new Error('Goal not found');
+      return next(error);
+    }
   
-    res.sendStatus(204);
+    res.status(200).json(goal);
   }
 }
 

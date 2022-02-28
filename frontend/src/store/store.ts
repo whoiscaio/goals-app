@@ -6,7 +6,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     goal: goalReducer,
-  }
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

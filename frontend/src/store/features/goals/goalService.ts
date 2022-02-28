@@ -28,6 +28,18 @@ async function create(goal: GoalType, token: string) {
   return response.data;
 }
 
+async function deleteGoal(goalId: string, token: string) {
+  const response = await axios({
+    method: 'DELETE',
+    url: `${API_URL}/${goalId}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+
+  return response.data;
+}
+
 export const goalService = {
-  getGoals, create
+  getGoals, create, deleteGoal
 };
