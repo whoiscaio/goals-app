@@ -6,6 +6,11 @@ export type GoalType = {
   completed: boolean;
 };
 
+export type CreateGoalType = {
+  goal: GoalType,
+  token: string,
+}
+
 const initialState = {
   goals: [] as GoalType[],
   isSuccess: false,
@@ -19,6 +24,23 @@ export const getGoals = createAsyncThunk(
   async (token: string, thunkAPI) => {
     try {
       return await goalService.getGoals(token);
+    } catch (err: any) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        String(err);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const createNewGoal = createAsyncThunk(
+  'goals/create',
+  async (info: CreateGoalType, thunkAPI) => {
+    const { goal, token } = info;
+
+    try {
+      return await goalService.create(goal, token);
     } catch (err: any) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -54,7 +76,20 @@ const goalSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = String(action.payload);
-      });
+      })
+      .addCase(createNewGoal.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createNewGoal.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.goals = [...state.goals, action.payload];
+      })
+      .addCase(createNewGoal.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = String(action.payload);
+      })
   },
 });
 

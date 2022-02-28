@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewGoal } from '../../store/features/goals/goalSlice';
+import { RootState } from '../../store/store';
 import { NewGoalModalContainer, Overlay } from './styles';
 
 type NewGoalModalType = {
@@ -8,12 +10,15 @@ type NewGoalModalType = {
 };
 
 function NewGoalModal({ closeModal }: NewGoalModalType) {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const [goalText, setGoalText] = useState<string>('');
 
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  function handleOverlayClick(e: MouseEvent) {
-    // eslint-disable-line
+  const dispatch = useDispatch();
+
+  function handleOverlayClick(e: MouseEvent) { // eslint-disable-line
     if (e.target === overlayRef.current) return closeModal();
   }
 
@@ -29,6 +34,17 @@ function NewGoalModal({ closeModal }: NewGoalModalType) {
   if (!modalPortal) return null;
 
   function createGoal() {
+    if (!user) return;
+
+    const newGoal = {
+      goal: {
+        text: goalText,
+        completed: false,
+      },
+      token: user.token,
+    };
+
+    dispatch(createNewGoal(newGoal));
     closeModal();
   }
 
