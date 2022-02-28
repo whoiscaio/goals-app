@@ -10,6 +10,7 @@ const dark: DefaultTheme = {
     elements: '#3D4766',
     effects: {
       themeSwitcherBackground: '#282828',
+      invertedButtonBackground: '#d6d6d6',
     },
   },
 };

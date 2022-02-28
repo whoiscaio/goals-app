@@ -9,6 +9,7 @@ declare module 'styled-components' {
       error: string,
       effects: {
         themeSwitcherBackground: string,
+        invertedButtonBackground: string,
       }
     },
     measures: {

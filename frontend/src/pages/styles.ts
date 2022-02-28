@@ -18,9 +18,9 @@ export const LoginSignupPageContainer = styled.section`
 
   label {
     display: block;
-    
+
     margin-bottom: 2rem;
-    
+
     &:last-of-type {
       margin-bottom: 3rem;
     }
@@ -34,7 +34,7 @@ export const LoginSignupPageContainer = styled.section`
     font-size: 1.6rem;
     width: 100%;
 
-    margin-top: .6rem;
+    margin-top: 0.6rem;
     padding: 1rem;
 
     outline: 0;
@@ -55,7 +55,7 @@ export const LoginSignupPageContainer = styled.section`
   .button-wrapper {
     display: flex;
     align-items: center;
-    
+
     button {
       margin-left: auto;
     }
@@ -66,7 +66,7 @@ export const LoginSignupPageContainer = styled.section`
     }
 
     a {
-      margin-left: .6rem;
+      margin-left: 0.6rem;
     }
   }
 
@@ -81,7 +81,7 @@ export const LoginSignupPageContainer = styled.section`
     font-size: 2.4rem;
     font-weight: 800;
 
-    padding: .8rem 1.6rem;
+    padding: 0.8rem 1.6rem;
 
     cursor: pointer;
 
@@ -100,14 +100,59 @@ export const LoginSignupPageContainer = styled.section`
     color: ${({ theme }) => theme.colors.error};
     font-size: 1.6rem;
 
-    margin-top: .4rem;
+    margin-top: 0.4rem;
   }
 `;
 
 export const DashboardContainer = styled.section`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   h1 {
     color: ${({ theme }) => theme.colors.text};
     font-size: 3.8rem;
+
+    margin-bottom: 2rem;
+  }
+
+  .options-container {
+    width: min(100%, 1000px);
+
+    display: flex;
+
+    .filters {
+      flex: 4;
+
+      background: #fff;
+      border-radius: ${({ theme }) => theme.measures.borderRadius};
+      box-shadow: ${({ theme }) => theme.measures.boxShadow};
+      color: ${({ theme }) => theme.colors.background};
+
+      margin-right: 1rem;
+    }
+
+    button {
+      flex: 1;
+
+      background: ${({ theme }) => theme.colors.text};
+      border-radius: ${({ theme }) => theme.measures.borderRadius};
+      box-shadow: ${({ theme }) => theme.measures.boxShadow};
+      color: ${({ theme }) => theme.colors.background};
+
+      font-size: 1.8rem;
+
+      padding: 1.2rem;
+
+      cursor: pointer;
+
+      &:hover {
+        transition: background .12s ease-in;
+        background: ${({ theme }) => theme.colors.effects.invertedButtonBackground};
+      }
+    }
   }
 `;
 
@@ -116,7 +161,7 @@ export const PageWrapper = styled.main`
 
   display: flex;
   justify-content: center;
-  
+
   margin: 0 auto;
   padding: 4rem 0;
 `;

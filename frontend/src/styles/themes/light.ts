@@ -10,6 +10,7 @@ const light: DefaultTheme = {
     elements: '#A3BCF9',
     effects: {
       themeSwitcherBackground: '#d6d6d6',
+      invertedButtonBackground: '#282828',
     },
   },
 }

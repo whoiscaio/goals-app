@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getGoals } from '../store/features/goals/goalSlice';
@@ -21,11 +21,17 @@ function Dashboard() {
     dispatch(getGoals(user.token));
   }, [user, navigate, dispatch]);
 
-  console.log(goals);
+  function handleCreateNewGoal() {
+    console.log('create new goal');
+  }
 
   return (
     <DashboardContainer>
       <h1>Dashboard</h1>
+      <div className="options-container">
+        <div className="filters"></div>
+        <button onClick={handleCreateNewGoal}>Create new goal</button>
+      </div>
       <div className="goals"></div>
     </DashboardContainer>
   );
