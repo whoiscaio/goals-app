@@ -1,7 +1,11 @@
 import { ArrowRight } from 'lucide-react';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import FormGroup from '../components/FormGroup';
 import useFormError from '../hooks/useFormError';
+import { register } from '../store/features/auth/authSlice';
+import { RootState } from '../store/store';
 import { LoginSignupPageContainer } from './styles';
 
 type SignupTypes = {
@@ -19,7 +23,22 @@ function Signup({ currentTheme }: SignupTypes) {
 
   const [setNewError, cleanErrors, getErrorsByFieldname] = useFormError();
 
-  const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { user, isLoading, isError, message, isSuccess } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {}, [
+    user,
+    isLoading,
+    isError,
+    message,
+    isSuccess,
+    dispatch,
+    navigate,
+  ]);
 
   function validateUsername(username: string) {
     if (!username) {
@@ -108,9 +127,17 @@ function Signup({ currentTheme }: SignupTypes) {
       validatePassword(password);
       validateConfirmPassword(password, confirmPassword);
     } else {
-      console.log('no errors');
+      const userData = {
+        name: username,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
     }
   }
+
+  const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
   const usernameErrors = getErrorsByFieldname('username');
   const emailErrors = getErrorsByFieldname('email');
