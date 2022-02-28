@@ -6,7 +6,6 @@ import { RootState } from '../../store/store';
 import { GoalContainer } from './styles';
 
 function Goal({ goal }: { goal: GoalType }) {
-  const [deleteButtonColor, setDeleteButtonColor] = useState<string>('#121212');
   const { user } = useSelector((state: RootState) => state.auth);
   
   const dispatch = useDispatch();
@@ -19,12 +18,6 @@ function Goal({ goal }: { goal: GoalType }) {
     dispatch(deleteGoal({goalId, token: user.token}));
   }
 
-  function toggleDeleteButtonColor() {
-    setDeleteButtonColor((prevState) =>
-      prevState === '#121212' ? '#cc0000' : '#121212'
-    );
-  }
-
   return (
     <GoalContainer className={goal.completed ? 'completed' : undefined}>
       <span>{goal.text}</span>
@@ -32,9 +25,7 @@ function Goal({ goal }: { goal: GoalType }) {
         <button id="delete-button" type="button" onClick={() => handleDeleteGoal(goal._id)}>
           <Delete
             size={24}
-            color={deleteButtonColor}
-            onMouseEnter={toggleDeleteButtonColor}
-            onMouseLeave={toggleDeleteButtonColor}
+            color='#121212'
           />
         </button>
       </div>

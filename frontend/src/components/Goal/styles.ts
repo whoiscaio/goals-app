@@ -34,6 +34,10 @@ export const GoalContainer = styled.div`
     
     svg {
       transition: stroke .12s ease-in;
+
+      &:hover {
+        stroke: #cc0000;
+      }
     }
   }
 `;
