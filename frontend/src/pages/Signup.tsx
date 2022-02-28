@@ -123,40 +123,40 @@ function Signup({ currentTheme }: SignupTypes) {
 
       <form onSubmit={handleSubmit}>
         <FormGroup error={usernameErrors}>
-          <span>Username</span>
           <input
             type="text"
             value={username}
+            placeholder="Username"
             onChange={handleUsernameChange}
             className={usernameErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 
         <FormGroup error={emailErrors}>
-          <span>Email</span>
           <input
             type="text"
             value={email}
+            placeholder="Email"
             onChange={handleEmailChange}
             className={emailErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 
         <FormGroup error={passwordErrors}>
-          <span>Password</span>
           <input
             type="password"
             value={password}
+            placeholder="Password"
             onChange={handlePasswordChange}
             className={passwordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 
         <FormGroup error={confirmPasswordErrors}>
-          <span>Confirm password</span>
           <input
             type="password"
             value={confirmPassword}
+            placeholder="Confirm your password"
             onChange={handleConfirmPasswordChange}
             className={confirmPasswordErrors.length > 0 ? 'error' : undefined}
           />

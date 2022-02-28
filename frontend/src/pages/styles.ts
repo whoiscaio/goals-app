@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginSignupPageContainer = styled.section`
   width: min(600px, 100%);
 
-  h1, span {
+  h1 {
     color: ${({ theme }) => theme.colors.text};
   }
 
@@ -26,15 +26,12 @@ export const LoginSignupPageContainer = styled.section`
     }
   }
 
-  span {
-    font-size: 1.8rem;
-  }
-
   input {
     border: 2px solid #ffffff;
     border-radius: ${({ theme }) => theme.measures.borderRadius};
     box-shadow: ${({ theme }) => theme.measures.boxShadow};
 
+    font-size: 1.6rem;
     width: 100%;
 
     margin-top: .6rem;
@@ -48,6 +45,10 @@ export const LoginSignupPageContainer = styled.section`
 
     &.error {
       border: 2px solid ${({ theme }) => theme.colors.error};
+    }
+
+    &::placeholder {
+      font-weight: 800;
     }
   }
 

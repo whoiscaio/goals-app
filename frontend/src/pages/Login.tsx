@@ -65,20 +65,20 @@ function Login({ currentTheme }: LoginProps) {
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
         <FormGroup error={usernameErrors}>
-          <span>Username</span>
           <input
             type="text"
             value={username}
+            placeholder="Username"
             onChange={handleUsernameChange}
             className={usernameErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 
         <FormGroup error={passwordErrors}>
-          <span>Password</span>
           <input
             type="password"
             value={password}
+            placeholder="Password"
             onChange={handlePasswordChange}
             className={passwordErrors.length > 0 ? 'error' : undefined}
           />
