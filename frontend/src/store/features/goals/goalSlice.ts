@@ -4,6 +4,7 @@ import { goalService } from './goalService';
 export type GoalType = {
   text: string;
   completed: boolean;
+  _id?: string,
 };
 
 export type CreateGoalType = {

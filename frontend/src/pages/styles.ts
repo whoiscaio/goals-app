@@ -119,7 +119,7 @@ export const DashboardContainer = styled.section`
   }
 
   .options-container {
-    width: min(100%, 1000px);
+    width: min(100%, 800px);
 
     display: flex;
 
@@ -153,6 +153,10 @@ export const DashboardContainer = styled.section`
         background: ${({ theme }) => theme.colors.effects.invertedButtonBackground};
       }
     }
+  }
+
+  .goals {
+    width: min(100%, 800px);
   }
 `;
 

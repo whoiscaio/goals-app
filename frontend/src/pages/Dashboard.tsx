@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Goal from '../components/Goal';
 import NewGoalModal from '../components/NewGoalModal';
 import { getGoals } from '../store/features/goals/goalSlice';
 import { RootState } from '../store/store';
@@ -39,7 +40,9 @@ function Dashboard() {
         <div className="filters"></div>
         <button onClick={handleCreateNewGoal}>Create new goal</button>
       </div>
-      <div className="goals"></div>
+      <div className="goals">
+        { goals && goals.map((goal) => <Goal key={goal._id} goal={goal} />) }
+      </div>
       {isCreateModalOpen && <NewGoalModal closeModal={closeCreateModal} />}
     </DashboardContainer>
   );
