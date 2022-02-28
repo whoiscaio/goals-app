@@ -2,18 +2,18 @@ import axios from 'axios';
 
 const API_URL = '/api/users';
 
-export type registerUserType = {
+export type RegisterUserType = {
   name: string,
   email: string,
   password: string,
 }
 
-export type loginUserType = {
+export type LoginUserType = {
   email: string,
   password: string,
 }
 
-async function register(userData: registerUserType) {
+async function register(userData: RegisterUserType) {
   const response = await axios({
     method: 'POST',
     url: API_URL,
@@ -27,7 +27,7 @@ async function register(userData: registerUserType) {
   return response.data;
 }
 
-async function login(userData: loginUserType) {
+async function login(userData: LoginUserType) {
   const response = await axios({
     method: 'POST',
     url: `${API_URL}/login`,
