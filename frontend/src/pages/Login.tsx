@@ -7,7 +7,7 @@ import useFormError from '../hooks/useFormError';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/features/auth/authSlice';
+import { login, reset } from '../store/features/auth/authSlice';
 
 type LoginProps = {
   currentTheme: string;
@@ -25,7 +25,11 @@ function Login({ currentTheme }: LoginProps) {
   );
 
   useEffect(() => {
-    console.log(user);
+    if(isSuccess) {
+      navigate('/');
+    }
+
+    dispatch(reset());
   }, [isError, isSuccess, isLoading, user, message, navigate, dispatch]);
 
   const [setNewError, cleanErrors, getErrorsByFieldname, isThereAnyError] =

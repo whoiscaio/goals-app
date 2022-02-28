@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FormGroup from '../components/FormGroup';
 import useFormError from '../hooks/useFormError';
-import { register } from '../store/features/auth/authSlice';
+import { register, reset } from '../store/features/auth/authSlice';
 import { RootState } from '../store/store';
 import { LoginSignupPageContainer } from './styles';
 
@@ -31,7 +31,11 @@ function Signup({ currentTheme }: SignupTypes) {
   );
 
   useEffect(() => {
-    console.log(user);
+    if(isSuccess) {
+      navigate('/');
+    }
+
+    dispatch(reset());
   }, [
     user,
     isLoading,
