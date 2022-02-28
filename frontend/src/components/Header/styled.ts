@@ -34,6 +34,13 @@ export const HeaderContainer = styled.header`
 
     a {
       font-size: 1.6rem;
+
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      margin-right: .8rem;
     }
   }
 
