@@ -79,11 +79,11 @@ class usersController {
 
     if (!loginConditional) {
       const error = new Error('Incorrect credentials');
-      next(error);
+      return next(error);
     }
 
     res.status(200).json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
