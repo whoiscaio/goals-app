@@ -1,18 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const user = localStorage.getItem('user');
-const parsedUser = user ? JSON.parse(user) : null;
+const parsedUser: string | null = user && JSON.parse(user);
 
-type authStateType = {
-  user: string | null,
-  isSuccess: boolean,
-  isError: boolean,
-  isLoading: boolean,
-  message: string,
-}
-
-const initialState: authStateType = {
-  user: parsedUser || null,
+const initialState = {
+  user: parsedUser,
   isSuccess: false,
   isError: false,
   isLoading: false,
