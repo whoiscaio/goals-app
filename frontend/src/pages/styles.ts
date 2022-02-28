@@ -61,6 +61,7 @@ export const LoginSignupPageContainer = styled.section`
     }
 
     span {
+      color: ${({ theme }) => theme.colors.text};
       font-size: 1.4rem;
     }
 
