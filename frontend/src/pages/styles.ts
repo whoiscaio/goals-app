@@ -104,6 +104,13 @@ export const LoginSignupPageContainer = styled.section`
   }
 `;
 
+export const DashboardContainer = styled.section`
+  h1 {
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 3.8rem;
+  }
+`;
+
 export const PageWrapper = styled.main`
   width: min(1200px, 80vw);
 
