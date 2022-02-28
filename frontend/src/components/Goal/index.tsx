@@ -1,5 +1,4 @@
 import { Delete } from 'lucide-react';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGoal, GoalType } from '../../store/features/goals/goalSlice';
 import { RootState } from '../../store/store';
