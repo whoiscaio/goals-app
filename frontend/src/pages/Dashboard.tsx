@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getGoals, GoalType } from '../store/features/goals/goalSlice';
+import { getGoals } from '../store/features/goals/goalSlice';
 import { RootState } from '../store/store';
 import { DashboardContainer } from './styles';
 
