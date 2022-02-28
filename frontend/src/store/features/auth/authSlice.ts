@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const user = JSON.parse(localStorage.getItem('user') || '');
+const user = localStorage.getItem('user');
+const parsedUser = user ? JSON.parse(user) : null;
 
 type authStateType = {
   user: string | null,
@@ -11,7 +12,7 @@ type authStateType = {
 }
 
 const initialState: authStateType = {
-  user: user || null,
+  user: parsedUser || null,
   isSuccess: false,
   isError: false,
   isLoading: false,
