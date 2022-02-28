@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import NewGoalModal from '../components/NewGoalModal';
 import { getGoals } from '../store/features/goals/goalSlice';
 import { RootState } from '../store/store';
 import { DashboardContainer } from './styles';
 
 function Dashboard() {
+  const [ isCreateModalOpen, setIsCreateModalOpen ] = useState<boolean>(false);
+
   const { user } = useSelector((state: RootState) => state.auth);
   const { goals } = useSelector((state: RootState) => state.goal);
 
@@ -22,7 +25,11 @@ function Dashboard() {
   }, [user, navigate, dispatch]);
 
   function handleCreateNewGoal() {
-    console.log('create new goal');
+    setIsCreateModalOpen(true);
+  }
+
+  function closeCreateModal() {
+    setIsCreateModalOpen(false);
   }
 
   return (
@@ -33,6 +40,7 @@ function Dashboard() {
         <button onClick={handleCreateNewGoal}>Create new goal</button>
       </div>
       <div className="goals"></div>
+      {isCreateModalOpen && <NewGoalModal closeModal={closeCreateModal} />}
     </DashboardContainer>
   );
 }
