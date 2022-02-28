@@ -1,19 +1,27 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getGoals, GoalType } from '../store/features/goals/goalSlice';
 import { RootState } from '../store/store';
 import { DashboardContainer } from './styles';
 
 function Dashboard() {
   const { user } = useSelector((state: RootState) => state.auth);
+  const { goals } = useSelector((state: RootState) => state.goal);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
+      return;
     }
-  }, [user, navigate]);
+
+    dispatch(getGoals(user.token));
+  }, [user, navigate, dispatch]);
+
+  console.log(goals);
 
   return (
     <DashboardContainer>
