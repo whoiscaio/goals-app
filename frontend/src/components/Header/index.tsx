@@ -2,6 +2,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { Sun, Moon } from 'lucide-react';
 
 import { HeaderContainer } from './styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { reset, logout } from '../../store/features/auth/authSlice';
 
 type HeaderProps = {
   currentTheme: string,
@@ -9,6 +12,15 @@ type HeaderProps = {
 }
 
 function Header({ currentTheme, themeSwitcher }: HeaderProps) {
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  function handleLogoutClick() {
+    dispatch(reset());
+    dispatch(logout());
+  }
+
   return (
     <HeaderContainer>
       <div className="title">
@@ -17,10 +29,20 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
         </h2>
       </div>
       <nav>
-        <ul>
-          <li><NavLink to="/login">Login</NavLink></li>
-          <li><NavLink to="/signup">Signup</NavLink></li>
-        </ul>
+        {
+          !user 
+          ? (
+            <ul>
+              <li><NavLink to="/login">Login</NavLink></li>
+              <li><NavLink to="/signup">Signup</NavLink></li>
+            </ul>
+          )
+          : (
+            <button id="logout-button" onClick={handleLogoutClick}>
+              Logout
+            </button>
+          )
+        }
         <button onClick={themeSwitcher}>
           {
             currentTheme === 'dark'

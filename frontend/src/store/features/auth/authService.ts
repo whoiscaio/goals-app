@@ -42,6 +42,10 @@ async function login(userData: loginUserType) {
   return response.data;
 }
 
+async function logout() {
+  localStorage.removeItem('user');
+}
+
 export const authService = {
-  register, login
+  register, login, logout
 }
