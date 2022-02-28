@@ -58,4 +58,13 @@ export const HeaderContainer = styled.header`
       }
     }
   }
+
+  #logout-button {
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 1.6rem;
+    font-weight: 800;
+    
+
+    margin-right: 2rem;
+  }
 `;
