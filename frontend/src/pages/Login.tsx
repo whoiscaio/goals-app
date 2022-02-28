@@ -1,27 +1,43 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 import { LoginSignupPageContainer } from './styles';
 import FormGroup from '../components/FormGroup';
 import useFormError from '../hooks/useFormError';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../store/features/auth/authSlice';
+import { loginUserType } from '../store/features/auth/authService';
 
 type LoginProps = {
   currentTheme: string;
 };
 
 function Login({ currentTheme }: LoginProps) {
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { isError, isSuccess, isLoading, user, message } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    console.log(user);
+  }, [isError, isSuccess, isLoading, user, message, navigate, dispatch]);
 
   const [setNewError, cleanErrors, getErrorsByFieldname, isThereAnyError] =
     useFormError();
 
-  function validateUsername(username: string) {
-    if (!username) {
-      return setNewError('This field is required', 'username');
+  function validateEmail(email: string) {
+    if (!email) {
+      return setNewError('This field is required', 'email');
     }
 
-    cleanErrors('username');
+    cleanErrors('email');
   }
 
   function validatePassword(password: string) {
@@ -32,21 +48,10 @@ function Login({ currentTheme }: LoginProps) {
     cleanErrors('password');
   }
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
 
-    if (isThereAnyError() || username.length === 0 || password.length === 0) {
-      validateUsername(username);
-      validatePassword(password);
-    } else {
-      console.log('no error');
-    }
-  }
-
-  function handleUsernameChange(e: ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
-
-    validateUsername(e.target.value);
+    validateEmail(e.target.value);
   }
 
   function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
@@ -55,22 +60,38 @@ function Login({ currentTheme }: LoginProps) {
     validatePassword(e.target.value);
   }
 
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (isThereAnyError() || email.length === 0 || password.length === 0) {
+      validateEmail(email);
+      validatePassword(password);
+    } else {
+      const userData = {
+        email,
+        password,
+      };
+
+      dispatch(login(userData));
+    }
+  }
+
   const arrowIconColor = currentTheme === 'dark' ? '#f6f8ff' : '#141414';
 
-  const usernameErrors = getErrorsByFieldname('username');
+  const emailErrors = getErrorsByFieldname('email');
   const passwordErrors = getErrorsByFieldname('password');
 
   return (
     <LoginSignupPageContainer>
       <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
-        <FormGroup error={usernameErrors}>
+        <FormGroup error={emailErrors}>
           <input
             type="text"
-            value={username}
-            placeholder="Username"
-            onChange={handleUsernameChange}
-            className={usernameErrors.length > 0 ? 'error' : undefined}
+            value={email}
+            placeholder="Email"
+            onChange={handleEmailChange}
+            className={emailErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
 

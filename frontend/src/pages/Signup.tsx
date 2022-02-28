@@ -30,7 +30,9 @@ function Signup({ currentTheme }: SignupTypes) {
     (state: RootState) => state.auth
   );
 
-  useEffect(() => {}, [
+  useEffect(() => {
+    console.log(user);
+  }, [
     user,
     isLoading,
     isError,
