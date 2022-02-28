@@ -10,31 +10,31 @@ class usersController {
   async registerUser(req, res, next) {
     const { name, email, password } = req.body;
 
-    if(!name) {
+    if (!name) {
       res.status(400);
       const error = new Error('Name is a required field');
       return next(error);
     }
 
-    if(!email) {
+    if (!email) {
       res.status(400);
       const error = new Error('Email is a required field');
       return next(error);
     }
 
-    if(!emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       res.status(400);
       const error = new Error('Email format is incorrect');
       return next(error);
     }
 
-    if(!password) {
+    if (!password) {
       res.status(400);
       const error = new Error('Password is a required field');
       return next(error);
     }
 
-    if(password.length < 8) {
+    if (password.length < 8) {
       res.status(400);
       const error = new Error('Password must have at least 8 digits');
       return next(error);
@@ -42,7 +42,7 @@ class usersController {
 
     const userExists = await User.findOne({ email });
 
-    if(userExists) {
+    if (userExists) {
       res.status(400);
       const error = new Error('User already exists');
       return next(error);
@@ -57,7 +57,7 @@ class usersController {
       password: hashedPassword,
     });
 
-    if(!registeredUser) {
+    if (!registeredUser) {
       const error = new Error('Internal error');
       return next(error);
     }
@@ -70,14 +70,14 @@ class usersController {
     });
   }
 
-  async loginUser(req, res) {
+  async loginUser(req, res, next) {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
     const loginConditional = user && (await bcrypt.compare(password, user.password));
 
-    if(!loginConditional) {
+    if (!loginConditional) {
       const error = new Error('Incorrect credentials');
       next(error);
     }
