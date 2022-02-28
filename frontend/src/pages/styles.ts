@@ -54,7 +54,19 @@ export const LoginSignupPageContainer = styled.section`
 
   .button-wrapper {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    
+    button {
+      margin-left: auto;
+    }
+
+    span {
+      font-size: 1.4rem;
+    }
+
+    a {
+      margin-left: .6rem;
+    }
   }
 
   button {

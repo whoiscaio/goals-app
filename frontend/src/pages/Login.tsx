@@ -6,7 +6,7 @@ import FormGroup from '../components/FormGroup';
 import useFormError from '../hooks/useFormError';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login, reset } from '../store/features/auth/authSlice';
 
 type LoginProps = {
@@ -109,6 +109,7 @@ function Login({ currentTheme }: LoginProps) {
         </FormGroup>
 
         <div className="button-wrapper">
+          <span>Doesn't have an account? <Link to="/signup">Signup here</Link></span>
           <button type="submit">
             <ArrowRight size={32} color={arrowIconColor} />
           </button>
