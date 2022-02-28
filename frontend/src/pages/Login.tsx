@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../store/features/auth/authSlice';
-import { loginUserType } from '../store/features/auth/authService';
 
 type LoginProps = {
   currentTheme: string;
