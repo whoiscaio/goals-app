@@ -21,7 +21,7 @@ Access the application here:
 ![Form errors](./.github/form-errors.png)
 
 ### Create/Update goal modal
-![Create/update goal modal](./.github/form-errors.png)
+![Create/update goal modal](./.github/create-goal.png)
 
 
 ## Stack
