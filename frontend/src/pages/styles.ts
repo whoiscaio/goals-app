@@ -157,6 +157,19 @@ export const DashboardContainer = styled.section`
         background: ${({ theme }) => theme.colors.effects.invertedButtonBackground};
       }
     }
+
+    @media (max-width: 800px) {
+      .filters {
+        order: 2;
+        margin-right: 0;
+      }
+
+      button {
+        margin-bottom: 2rem;
+      }
+
+      flex-direction: column;
+    }
   }
 
   .goals {
@@ -187,7 +200,7 @@ export const DashboardContainer = styled.section`
 `;
 
 export const PageWrapper = styled.main`
-  width: min(1200px, 80vw);
+  width: min(1200px, 90vw);
 
   display: flex;
   justify-content: center;
