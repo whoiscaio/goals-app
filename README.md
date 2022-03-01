@@ -3,7 +3,7 @@
 This application is a CRUD-based app with login/signup functionality where you can set and track all of your goals in a very simple and user-friendly interface.
 
 Access the application here:
-[Application link](https://whoiscaio-goals-app.herokuapp.com/)
+[Goals App](https://whoiscaio-goals-app.herokuapp.com/)
 
 ## Screenshots
 
