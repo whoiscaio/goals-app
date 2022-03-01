@@ -9,7 +9,6 @@ import { DashboardContainer } from './styles';
 
 function Dashboard() {
   const [ filterText, setFilterText ] = useState<string>('');
-  const [ completedFilter, setCompletedFilter ] = useState<boolean>(false);
   const [ isCreateModalOpen, setIsCreateModalOpen ] = useState<boolean>(false);
 
   const { user } = useSelector((state: RootState) => state.auth);
@@ -37,10 +36,6 @@ function Dashboard() {
 
   function handleFilterTextChange(e: ChangeEvent<HTMLInputElement>) {
     setFilterText(e.target.value);
-  }
-
-  function handleCompletedFilterChange(e: ChangeEvent<HTMLInputElement>) {
-    setCompletedFilter(e.target.checked);
   }
 
   function filterGoal(goal: GoalType) {
