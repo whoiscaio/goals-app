@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/users';
+const API_URL = 'api/users';
 
 export type RegisterUserType = {
   name: string,
@@ -34,10 +34,7 @@ async function login(userData: LoginUserType) {
     data: userData,
   });
 
-  console.log(response);
-
   if(response.data) {
-    console.log(response.data);
     localStorage.setItem('user', JSON.stringify(response.data));
   }
 

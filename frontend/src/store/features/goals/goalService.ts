@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GoalType } from './goalSlice';
 
-const API_URL = '/api/goals';
+const API_URL = 'api/goals';
 
 async function getGoals(token: string) {
   const response = await axios({
