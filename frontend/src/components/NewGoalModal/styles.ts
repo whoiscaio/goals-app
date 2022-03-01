@@ -12,6 +12,8 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  cursor: pointer;
 `;
 
 export const NewGoalModalContainer = styled.div`
@@ -23,19 +25,22 @@ export const NewGoalModalContainer = styled.div`
   padding: 2rem;
   margin: 0 4rem;
 
+  cursor: initial;
+
   h3 {
     font-size: 2.6rem;
   }
 
   input {
-    border: 0;
+    border: 1px solid #838383;
+    border-radius: ${({ theme }) => theme.measures.borderRadius};
 
     font-size: 1.6rem;
 
     width: 100%;
 
     margin: 2rem 0;
-    padding: .5rem 0;
+    padding: .8rem 1.2rem;
   }
 
   .button-wrapper {
