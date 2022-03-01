@@ -43,6 +43,17 @@ export const MobileMenuContainer = styled.div`
     }
   }
 
+  #menu-logout-button {
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 1.8rem;
+
+    width: 100%;
+
+    padding: 1.6rem;
+
+    cursor: pointer;
+  }
+
   padding: .8rem;
 
   cursor: initial;
