@@ -9,9 +9,10 @@ type NewGoalModalType = {
   closeModal: () => void;
   type?: string;
   goalId?: string;
+  isGoalCompleted?: boolean;
 };
 
-function NewGoalModal({ closeModal, type, goalId }: NewGoalModalType) {
+function NewGoalModal({ closeModal, type, goalId, isGoalCompleted }: NewGoalModalType) {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const [goalText, setGoalText] = useState<string>('');
@@ -56,7 +57,7 @@ function NewGoalModal({ closeModal, type, goalId }: NewGoalModalType) {
     const updatedGoal = {
       newGoal: {
         text: goalText,
-        completed: false,
+        completed: isGoalCompleted || false,
       },
       goalId,
       token: user.token,

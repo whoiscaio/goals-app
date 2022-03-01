@@ -1,13 +1,16 @@
 import { Delete, Edit } from 'lucide-react';
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGoal, GoalType } from '../../store/features/goals/goalSlice';
+import { deleteGoal, GoalType, updateGoal } from '../../store/features/goals/goalSlice';
 import { RootState } from '../../store/store';
 import NewGoalModal from '../NewGoalModal';
 import { GoalContainer } from './styles';
 
 function Goal({ goal }: { goal: GoalType }) {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+  const [goalChecked, isGoalChecked] = useState<boolean>(goal.completed);
+
+  const firstRender = useRef<boolean>(true);
 
   const { user } = useSelector((state: RootState) => state.auth);
   
@@ -27,9 +30,44 @@ function Goal({ goal }: { goal: GoalType }) {
     setIsUpdateModalOpen(false);
   }
 
+  function handleGoalChange(e: ChangeEvent<HTMLInputElement>) {
+    isGoalChecked(e.target.checked);
+
+    const newGoal = {
+      text: goal.text,
+      completed: goalChecked,
+    }
+  }
+
+  useEffect(() => {
+    if(firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+
+    if(!user || !goal._id) {
+      return;
+    }
+
+    const editInfo = {
+      newGoal: {
+        text: goal.text,
+        completed: goalChecked,
+      },
+      goalId: goal._id,
+      token: user.token,
+    }
+
+    dispatch(updateGoal(editInfo));
+  }, [goalChecked]);
+
   return (
-    <GoalContainer className={goal.completed ? 'completed' : undefined}>
-      <span>{goal.text}</span>
+    <GoalContainer className={goalChecked ? 'completed' : undefined}>
+      <label>
+        <input type="checkbox" id="goal-checkbox" onChange={handleGoalChange} checked={goalChecked}/>
+        <span id="custom-checkbox" />
+        <span>{goal.text}</span>
+      </label>
       <div className="actions">
         <button id="edit-button" type="button" onClick={() => handleEditGoal()}>
           <Edit size={24} color='#121212' />
