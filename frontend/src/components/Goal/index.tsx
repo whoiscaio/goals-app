@@ -32,11 +32,6 @@ function Goal({ goal }: { goal: GoalType }) {
 
   function handleGoalChange(e: ChangeEvent<HTMLInputElement>) {
     isGoalChecked(e.target.checked);
-
-    const newGoal = {
-      text: goal.text,
-      completed: goalChecked,
-    }
   }
 
   useEffect(() => {
@@ -59,7 +54,7 @@ function Goal({ goal }: { goal: GoalType }) {
     }
 
     dispatch(updateGoal(editInfo));
-  }, [goalChecked]);
+  }, [goalChecked, dispatch, goal._id, goal.text, user]);
 
   return (
     <GoalContainer className={goalChecked ? 'completed' : undefined}>
