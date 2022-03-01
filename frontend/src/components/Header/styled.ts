@@ -8,8 +8,12 @@ export const HeaderContainer = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
   width: min(1200px, 80vw);
-  
+
   margin: 0 auto;
+
+  .options-wrapper {
+    display: flex;
+  }
 
   h2 {
     color: ${({ theme }) => theme.colors.text};
@@ -43,7 +47,7 @@ export const HeaderContainer = styled.header`
     }
 
     svg {
-      margin-right: .8rem;
+      margin-right: 0.8rem;
     }
   }
 
@@ -51,25 +55,26 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
 
-    button {
-      border-radius: ${({ theme }) => theme.measures.borderRadius};
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      padding: .8rem;
-      
-      cursor: pointer;
-      transition: background-color .12s ease-in;
-
-      &:hover {
-        background-color: ${({ theme }) => theme.colors.effects.themeSwitcherBackground};
-      }
-    }
-
     @media (max-width: 650px) {
       display: none;
+    }
+  }
+
+  #theme-switcher-button, #mobile-menu-button {
+    border-radius: ${({ theme }) => theme.measures.borderRadius};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.8rem;
+
+    cursor: pointer;
+    transition: background-color 0.12s ease-in;
+
+    &:hover {
+      background-color: ${({ theme }) =>
+        theme.colors.effects.themeSwitcherBackground};
     }
   }
 
@@ -77,13 +82,14 @@ export const HeaderContainer = styled.header`
     color: ${({ theme }) => theme.colors.text};
     font-size: 1.6rem;
     font-weight: 800;
-    
 
     margin-right: 2rem;
   }
 
   #mobile-menu-button {
     display: none;
+
+    margin-left: .8rem;
 
     cursor: pointer;
 

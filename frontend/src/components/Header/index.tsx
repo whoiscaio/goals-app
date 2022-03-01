@@ -10,12 +10,12 @@ import { useState } from 'react';
 import MobileMenu from '../MobileMenu';
 
 type HeaderProps = {
-  currentTheme: string,
-  themeSwitcher: () => void,
-}
+  currentTheme: string;
+  themeSwitcher: () => void;
+};
 
 function Header({ currentTheme, themeSwitcher }: HeaderProps) {
-  const [ isMobileMenuOpen, setIsMobileMenuOpen ] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -30,43 +30,52 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
   return (
     <HeaderContainer>
       <div className="title">
-        <h2>
-          Goals
-        </h2>
+        <h2>Goals</h2>
       </div>
-      <nav>
-        {
-          !user 
-          ? (
+      <div className="options-wrapper">
+        <nav>
+          {!user ? (
             <ul>
-              <li><NavLink to="/login">
-                <LogIn size={24} />
-                Login  
-              </NavLink></li>
-              <li><NavLink to="/signup">
-                <User size={24} />
-                Signup  
-              </NavLink></li>
+              <li>
+                <NavLink to="/login">
+                  <LogIn size={24} />
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/signup">
+                  <User size={24} />
+                  Signup
+                </NavLink>
+              </li>
             </ul>
-          )
-          : (
+          ) : (
             <button id="logout-button" onClick={handleLogoutClick}>
               Logout
             </button>
-          )
-        }
-        <button onClick={themeSwitcher}>
-          {
-            currentTheme === 'dark'
-            ? <Sun color='#f6f8ff' size={24} />
-            : <Moon size={24} />
-          }
+          )}
+        </nav>
+        <button id="theme-switcher-button" onClick={themeSwitcher}>
+          {currentTheme === 'dark' ? (
+            <Sun color="#f6f8ff" size={24} />
+          ) : (
+            <Moon size={24} />
+          )}
         </button>
-      </nav>
-      <button id="mobile-menu-button" type="button" onClick={() => setIsMobileMenuOpen(true)}>
-        <Menu size={24} />
-      </button>
-      { isMobileMenuOpen && <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} /> }
+        <button
+          id="mobile-menu-button"
+          type="button"
+          onClick={() => setIsMobileMenuOpen(true)}
+        >
+          <Menu
+            size={24}
+            color={currentTheme === 'light' ? '#121212' : '#f6f8ff'}
+          />
+        </button>
+      </div>
+      {isMobileMenuOpen && (
+        <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} />
+      )}
     </HeaderContainer>
   );
 }
