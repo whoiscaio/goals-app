@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FormGroup from '../components/FormGroup';
@@ -22,6 +22,8 @@ function Signup({ currentTheme }: SignupTypes) {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [formError, setFormError] = useState<string>('');
 
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
   const [setNewError, cleanErrors, getErrorsByFieldname] = useFormError();
 
   const dispatch = useDispatch();
@@ -30,6 +32,22 @@ function Signup({ currentTheme }: SignupTypes) {
   const { user, isLoading, isError, message, isSuccess } = useSelector(
     (state: RootState) => state.auth
   );
+
+  function handleKeydown(e: KeyboardEvent) {
+    if(!submitButtonRef.current) return;
+
+    if(e.key === 'Enter') {
+      submitButtonRef.current.click();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    }
+  }, []);
 
   useEffect(() => {
     if(message) {
@@ -205,7 +223,7 @@ function Signup({ currentTheme }: SignupTypes) {
         }
 
         <div className="button-wrapper">
-          <button type="submit">
+          <button type="submit" ref={submitButtonRef}>
             <ArrowRight size={32} color={arrowIconColor} />
           </button>
         </div>

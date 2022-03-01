@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 import { LoginSignupPageContainer } from './styles';
@@ -18,12 +18,30 @@ function Login({ currentTheme }: LoginProps) {
   const [password, setPassword] = useState<string>('');
   const [formError, setFormError] = useState<string>('');
 
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isError, isSuccess, isLoading, user, message } = useSelector(
     (state: RootState) => state.auth
   );
+
+  function handleKeydown(e: KeyboardEvent) {
+    if(!submitButtonRef.current) return;
+
+    if(e.key === 'Enter') {
+      submitButtonRef.current.click();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    }
+  }, [])
 
   useEffect(() => {
     if(message) {
@@ -119,7 +137,7 @@ function Login({ currentTheme }: LoginProps) {
 
         <div className="button-wrapper">
           <span>Doesn't have an account? <Link to="/signup">Signup here</Link></span>
-          <button type="submit">
+          <button type="submit" ref={submitButtonRef}>
             <ArrowRight size={32} color={arrowIconColor} />
           </button>
         </div>
