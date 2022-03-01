@@ -25,18 +25,32 @@ export const GoalContainer = styled.div`
     }
   }
 
+  .actions {
+    display: flex;
+  }
+
   button {
     display: flex;
     justify-content: center;
     align-items: center;
 
     cursor: pointer;
+
+    margin-left: 2rem;
     
     svg {
       transition: stroke .12s ease-in;
+    }
 
-      &:hover {
+    &#delete-button:hover {
+      svg {
         stroke: #cc0000;
+      }
+    }
+
+    &#edit-button:hover {
+      svg {
+        stroke: #1478f3;
       }
     }
   }

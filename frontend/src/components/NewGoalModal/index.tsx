@@ -1,15 +1,17 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewGoal } from '../../store/features/goals/goalSlice';
+import { createNewGoal, updateGoal as handleUpdateGoal } from '../../store/features/goals/goalSlice';
 import { RootState } from '../../store/store';
 import { NewGoalModalContainer, Overlay } from './styles';
 
 type NewGoalModalType = {
   closeModal: () => void;
+  type?: string;
+  goalId?: string;
 };
 
-function NewGoalModal({ closeModal }: NewGoalModalType) {
+function NewGoalModal({ closeModal, type, goalId }: NewGoalModalType) {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const [goalText, setGoalText] = useState<string>('');
@@ -48,6 +50,22 @@ function NewGoalModal({ closeModal }: NewGoalModalType) {
     closeModal();
   }
 
+  function updateGoal() {
+    if(!user || !goalId) return;
+
+    const updatedGoal = {
+      newGoal: {
+        text: goalText,
+        completed: false,
+      },
+      goalId,
+      token: user.token,
+    }
+
+    dispatch(handleUpdateGoal(updatedGoal));
+    closeModal();
+  }
+
   function handleGoalTextChange(e: ChangeEvent<HTMLInputElement>) {
     setGoalText(e.target.value);
   }
@@ -58,13 +76,17 @@ function NewGoalModal({ closeModal }: NewGoalModalType) {
         <h3>Set a new goal</h3>
         <input
           type="text"
-          placeholder="Type your goal here..."
+          placeholder={type !== 'update' ? 'Type your goal here...' : 'Type your updated goal here...'}
           value={goalText}
           onChange={handleGoalTextChange}
         />
         <div className="button-wrapper">
-          <button type="button" onClick={createGoal}>
-            Create goal
+          <button type="button" onClick={type !== 'update' ? createGoal : updateGoal}>
+            {
+              type !== 'update'
+              ? 'Create goal'
+              : 'Update goal'
+            }
           </button>
         </div>
       </NewGoalModalContainer>
