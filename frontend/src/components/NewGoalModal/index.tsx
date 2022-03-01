@@ -1,7 +1,10 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewGoal, updateGoal as handleUpdateGoal } from '../../store/features/goals/goalSlice';
+import {
+  createNewGoal,
+  updateGoal as handleUpdateGoal,
+} from '../../store/features/goals/goalSlice';
 import { RootState } from '../../store/store';
 import { NewGoalModalContainer, Overlay } from './styles';
 
@@ -12,18 +15,45 @@ type NewGoalModalType = {
   isGoalCompleted?: boolean;
 };
 
-function NewGoalModal({ closeModal, type, goalId, isGoalCompleted }: NewGoalModalType) {
+function NewGoalModal({
+  closeModal,
+  type,
+  goalId,
+  isGoalCompleted,
+}: NewGoalModalType) {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const [goalText, setGoalText] = useState<string>('');
 
   const overlayRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
 
-  function handleOverlayClick(e: MouseEvent) { // eslint-disable-line
+  function handleOverlayClick(e: MouseEvent) { //eslint-disable-line
     if (e.target === overlayRef.current) return closeModal();
   }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (!buttonRef.current) return;
+
+    if (e.key === 'Enter') {
+      buttonRef.current.click();
+    }
+  }
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      document.addEventListener('keydown', handleKeydown);
+    };
+  });
 
   useEffect(() => {
     document.addEventListener('click', handleOverlayClick);
@@ -52,7 +82,7 @@ function NewGoalModal({ closeModal, type, goalId, isGoalCompleted }: NewGoalModa
   }
 
   function updateGoal() {
-    if(!user || !goalId) return;
+    if (!user || !goalId) return;
 
     const updatedGoal = {
       newGoal: {
@@ -61,7 +91,7 @@ function NewGoalModal({ closeModal, type, goalId, isGoalCompleted }: NewGoalModa
       },
       goalId,
       token: user.token,
-    }
+    };
 
     dispatch(handleUpdateGoal(updatedGoal));
     closeModal();
@@ -77,17 +107,22 @@ function NewGoalModal({ closeModal, type, goalId, isGoalCompleted }: NewGoalModa
         <h3>Set a new goal</h3>
         <input
           type="text"
-          placeholder={type !== 'update' ? 'Type your goal here...' : 'Type your updated goal here...'}
+          ref={inputRef}
+          placeholder={
+            type !== 'update'
+              ? 'Type your goal here...'
+              : 'Type your updated goal here...'
+          }
           value={goalText}
           onChange={handleGoalTextChange}
         />
         <div className="button-wrapper">
-          <button type="button" onClick={type !== 'update' ? createGoal : updateGoal}>
-            {
-              type !== 'update'
-              ? 'Create goal'
-              : 'Update goal'
-            }
+          <button
+            type="button"
+            ref={buttonRef}
+            onClick={type !== 'update' ? createGoal : updateGoal}
+          >
+            {type !== 'update' ? 'Create goal' : 'Update goal'}
           </button>
         </div>
       </NewGoalModalContainer>
