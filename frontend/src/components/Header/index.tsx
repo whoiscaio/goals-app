@@ -5,6 +5,7 @@ import { HeaderContainer } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { reset, logout } from '../../store/features/auth/authSlice';
+import { reset as goalReset } from '../../store/features/goals/goalSlice';
 
 type HeaderProps = {
   currentTheme: string,
@@ -18,6 +19,7 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
 
   function handleLogoutClick() {
     dispatch(reset());
+    dispatch(goalReset());
     dispatch(logout());
   }
 

@@ -79,6 +79,7 @@ const goalSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
+      state.goals = [];
       state.isSuccess = false;
       state.isError = false;
       state.isLoading = false;
