@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import { Sun, Moon, LogIn, User } from 'lucide-react';
+import { Sun, Moon, LogIn, User, Menu } from 'lucide-react';
 
 import { HeaderContainer } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { reset, logout } from '../../store/features/auth/authSlice';
 import { reset as goalReset } from '../../store/features/goals/goalSlice';
+import { useState } from 'react';
+import MobileMenu from '../MobileMenu';
 
 type HeaderProps = {
   currentTheme: string,
@@ -13,6 +15,8 @@ type HeaderProps = {
 }
 
 function Header({ currentTheme, themeSwitcher }: HeaderProps) {
+  const [ isMobileMenuOpen, setIsMobileMenuOpen ] = useState<boolean>(false);
+
   const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth);
@@ -59,6 +63,10 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
           }
         </button>
       </nav>
+      <button id="mobile-menu-button" type="button" onClick={() => setIsMobileMenuOpen(true)}>
+        <Menu size={24} />
+      </button>
+      { isMobileMenuOpen && <MobileMenu closeMenu={() => setIsMobileMenuOpen(false)} /> }
     </HeaderContainer>
   );
 }

@@ -67,6 +67,10 @@ export const HeaderContainer = styled.header`
         background-color: ${({ theme }) => theme.colors.effects.themeSwitcherBackground};
       }
     }
+
+    @media (max-width: 650px) {
+      display: none;
+    }
   }
 
   #logout-button {
@@ -76,5 +80,15 @@ export const HeaderContainer = styled.header`
     
 
     margin-right: 2rem;
+  }
+
+  #mobile-menu-button {
+    display: none;
+
+    cursor: pointer;
+
+    @media (max-width: 650px) {
+      display: flex;
+    }
   }
 `;
