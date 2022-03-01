@@ -58,6 +58,7 @@ class usersController {
     });
 
     if (!registeredUser) {
+      res.status(500);
       const error = new Error('Internal error');
       return next(error);
     }
@@ -78,6 +79,7 @@ class usersController {
     const loginConditional = user && (await bcrypt.compare(password, user.password));
 
     if (!loginConditional) {
+      res.status(400);
       const error = new Error('Incorrect credentials');
       return next(error);
     }

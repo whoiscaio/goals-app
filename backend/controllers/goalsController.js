@@ -60,6 +60,7 @@ class goalsController {
     const { id } = req.params;
   
     if (id.length !== 24) {
+      res.status(400);
       const error = new Error('Invalid id provided');
       return next(error);
     }
@@ -70,6 +71,7 @@ class goalsController {
     });
 
     if(!goal) {
+      res.status(404);
       const error = new Error('Goal not found');
       return next(error);
     }
