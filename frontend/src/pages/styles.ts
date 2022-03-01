@@ -162,6 +162,28 @@ export const DashboardContainer = styled.section`
   .goals {
     width: min(100%, 800px);
   }
+  
+  .filters {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.4rem;
+
+    input {
+      flex: 5;
+
+      border: 1px solid #838383;
+      border-radius: ${({ theme }) => theme.measures.borderRadius};
+
+      font-size: 1.6rem;
+
+      padding: .4rem .8rem;
+    }
+
+    span {
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 export const PageWrapper = styled.main`

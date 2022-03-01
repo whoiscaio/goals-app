@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Goal from '../components/Goal';
 import NewGoalModal from '../components/NewGoalModal';
-import { getGoals } from '../store/features/goals/goalSlice';
+import { getGoals, GoalType } from '../store/features/goals/goalSlice';
 import { RootState } from '../store/store';
 import { DashboardContainer } from './styles';
 
 function Dashboard() {
+  const [ filterText, setFilterText ] = useState<string>('');
+  const [ completedFilter, setCompletedFilter ] = useState<boolean>(false);
   const [ isCreateModalOpen, setIsCreateModalOpen ] = useState<boolean>(false);
 
   const { user } = useSelector((state: RootState) => state.auth);
@@ -33,15 +35,33 @@ function Dashboard() {
     setIsCreateModalOpen(false);
   }
 
+  function handleFilterTextChange(e: ChangeEvent<HTMLInputElement>) {
+    setFilterText(e.target.value);
+  }
+
+  function handleCompletedFilterChange(e: ChangeEvent<HTMLInputElement>) {
+    setCompletedFilter(e.target.checked);
+  }
+
+  function filterGoal(goal: GoalType) {
+    if(filterText === '') return true;
+
+    return goal.text.toLowerCase().includes(filterText.toLowerCase());
+  }
+
   return (
     <DashboardContainer>
       <h1>Dashboard</h1>
       <div className="options-container">
-        <div className="filters"></div>
+        <div className="filters">
+          <input type="text" placeholder="Filter by text..." value={filterText} onChange={handleFilterTextChange} />
+        </div>
         <button onClick={handleCreateNewGoal}>Create new goal</button>
       </div>
       <div className="goals">
-        { goals && goals.map((goal) => <Goal key={goal._id} goal={goal} />) }
+        { goals && goals.map((goal) => (
+          filterGoal(goal) && <Goal key={goal._id} goal={goal} />
+        )) }
       </div>
       {isCreateModalOpen && <NewGoalModal closeModal={closeCreateModal} />}
     </DashboardContainer>
