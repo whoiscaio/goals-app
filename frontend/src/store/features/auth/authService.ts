@@ -34,6 +34,8 @@ async function login(userData: LoginUserType) {
     data: userData,
   });
 
+  console.log(response);
+
   if(response.data) {
     console.log(response.data);
     localStorage.setItem('user', JSON.stringify(response.data));

@@ -16,6 +16,7 @@ type LoginProps = {
 function Login({ currentTheme }: LoginProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [formError, setFormError] = useState<string>('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ function Login({ currentTheme }: LoginProps) {
   );
 
   useEffect(() => {
+    if(message) {
+      setFormError(message);
+    }
+
     if(isSuccess) {
       navigate('/');
     }
@@ -107,6 +112,10 @@ function Login({ currentTheme }: LoginProps) {
             className={passwordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
+
+        {
+          formError && <div className="error form-error">{formError}</div>
+        }
 
         <div className="button-wrapper">
           <span>Doesn't have an account? <Link to="/signup">Signup here</Link></span>

@@ -20,6 +20,7 @@ function Signup({ currentTheme }: SignupTypes) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [formError, setFormError] = useState<string>('');
 
   const [setNewError, cleanErrors, getErrorsByFieldname] = useFormError();
 
@@ -31,6 +32,10 @@ function Signup({ currentTheme }: SignupTypes) {
   );
 
   useEffect(() => {
+    if(message) {
+      setFormError(message);
+    }
+
     if(isSuccess) {
       navigate('/');
     }
@@ -194,6 +199,10 @@ function Signup({ currentTheme }: SignupTypes) {
             className={confirmPasswordErrors.length > 0 ? 'error' : undefined}
           />
         </FormGroup>
+
+        {
+          formError && <div className="error form-error">{formError}</div>
+        }
 
         <div className="button-wrapper">
           <button type="submit">

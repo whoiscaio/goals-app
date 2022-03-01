@@ -101,6 +101,10 @@ export const LoginSignupPageContainer = styled.section`
     font-size: 1.6rem;
 
     margin-top: 0.4rem;
+
+    &.form-error {
+      margin-bottom: .8rem;
+    }
   }
 `;
 
