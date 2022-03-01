@@ -15,6 +15,8 @@ export const HeaderContainer = styled.header`
     font-size: 3rem;
 
     padding: 2.6rem 0;
+
+    pointer-events: none;
   }
 
   a {

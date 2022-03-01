@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Sun, Moon, LogIn, User } from 'lucide-react';
 
 import { HeaderContainer } from './styled';
@@ -27,7 +27,7 @@ function Header({ currentTheme, themeSwitcher }: HeaderProps) {
     <HeaderContainer>
       <div className="title">
         <h2>
-          <Link to="/">Goals</Link>
+          Goals
         </h2>
       </div>
       <nav>
