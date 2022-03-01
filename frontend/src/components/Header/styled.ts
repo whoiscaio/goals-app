@@ -12,6 +12,7 @@ export const HeaderContainer = styled.header`
   margin: 0 auto;
 
   h2 {
+    color: ${({ theme }) => theme.colors.text};
     font-size: 3rem;
 
     padding: 2.6rem 0;
