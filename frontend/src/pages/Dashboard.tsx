@@ -1,3 +1,4 @@
+import { Search } from 'lucide-react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,8 +9,8 @@ import { RootState } from '../store/store';
 import { DashboardContainer } from './styles';
 
 function Dashboard() {
-  const [ filterText, setFilterText ] = useState<string>('');
-  const [ isCreateModalOpen, setIsCreateModalOpen ] = useState<boolean>(false);
+  const [filterText, setFilterText] = useState<string>('');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
   const { user } = useSelector((state: RootState) => state.auth);
   const { goals } = useSelector((state: RootState) => state.goal);
@@ -39,7 +40,7 @@ function Dashboard() {
   }
 
   function filterGoal(goal: GoalType) {
-    if(filterText === '') return true;
+    if (filterText === '') return true;
 
     return goal.text.toLowerCase().includes(filterText.toLowerCase());
   }
@@ -49,14 +50,21 @@ function Dashboard() {
       <h1>Dashboard</h1>
       <div className="options-container">
         <div className="filters">
-          <input type="text" placeholder="Filter by text..." value={filterText} onChange={handleFilterTextChange} />
+          <Search size={24} color="#838383" />
+          <input
+            type="text"
+            placeholder="Filter by text..."
+            value={filterText}
+            onChange={handleFilterTextChange}
+          />
         </div>
         <button onClick={handleCreateNewGoal}>Create new goal</button>
       </div>
       <div className="goals">
-        { goals && goals.map((goal) => (
-          filterGoal(goal) && <Goal key={goal._id} goal={goal} />
-        )) }
+        {goals &&
+          goals.map(
+            (goal) => filterGoal(goal) && <Goal key={goal._id} goal={goal} />
+          )}
       </div>
       {isCreateModalOpen && <NewGoalModal closeModal={closeCreateModal} />}
     </DashboardContainer>

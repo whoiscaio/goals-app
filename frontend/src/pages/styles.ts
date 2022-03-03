@@ -135,6 +135,8 @@ export const DashboardContainer = styled.section`
       box-shadow: ${({ theme }) => theme.measures.boxShadow};
       color: ${({ theme }) => theme.colors.background};
 
+      display: flex;
+
       margin-right: 1rem;
     }
 
@@ -178,19 +180,24 @@ export const DashboardContainer = styled.section`
   
   .filters {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
 
     padding: 1.4rem;
 
     input {
-      flex: 5;
+      flex: 1;
 
-      border: 1px solid #838383;
+      border: 1px solid #c6c6c6;
       border-radius: ${({ theme }) => theme.measures.borderRadius};
 
       font-size: 1.6rem;
 
       padding: .4rem .8rem;
+    }
+
+    svg {
+      margin-right: 1.6rem;
     }
 
     span {
